@@ -1,0 +1,28 @@
+#!/bin/sh
+
+file="$1"
+format="$2"
+
+name="${file%.*}"
+
+if [ -z "$file" ]; then
+  echo "[turtlee-zip2obb] No file provided"
+  exit 1
+fi
+
+if [ ! -f "$file" ]; then
+  echo "[turtlee-zip2obb] File not found"
+  exit 1
+fi
+
+case "$file" in
+  *.zip|*.tar|*.gz|*)
+    ;;
+esac
+
+if mv -f "$file" "$name.obb"; then
+  echo "[turtlee-zip2obb] Renamed $file to $name.obb sucessfully"
+else
+  echo "[turtlee-zip2obb] You cannot rename $file to $name.obb; check the FS type of your directory, or file permissions"
+  exit 1
+fi
